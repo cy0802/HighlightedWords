@@ -1,5 +1,6 @@
 import os
 import imgToStr
+import resizeImg
 import crawler
 from flask import Flask, request, redirect, url_for, render_template
 
@@ -14,6 +15,11 @@ app.config['MAX_CONTENT_SIZE'] = 5 * 1024 * 1024  # 5MB
 @app.route("/")
 def home():
     return render_template('index.html')
+
+
+@app.route("/intro")
+def intro():
+    return render_template('intro.html')
 
 
 def allowed_file(filename):
@@ -34,6 +40,7 @@ def upload_picture():
             picture.save(path)
             words = imgToStr.ImgToStr(path)
             translate = crawler.Translate(words)
+            resizeImg.resize(path)
             # print(translate[0][1]['translate'][0])
             # print(type(translate[0][1]['translate'][0]))
             return render_template('index.html', translation=translate, picture_path=picture.filename)
