@@ -15,7 +15,7 @@ app.config['MAX_CONTENT_SIZE'] = 5 * 1024 * 1024  # 5MB
 
 @app.route('/history')
 def history():
-    word = readJson.select('test.json')
+    word = readJson.select('data.json')
     return render_template('memorizeWord.html', words=word)
 
 
@@ -51,7 +51,7 @@ def upload_picture():
             picture.save(path)
             words = imgToStr.ImgToStr(path)
             if history == True:
-                readJson.insertData(words, 'test.json')
+                readJson.insertData(words, 'data.json')
             translate = crawler.Translate(words)
             resizeImg.resize(path)
             # print(translate[0][1]['translate'][0])
