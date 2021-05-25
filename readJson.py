@@ -6,8 +6,10 @@ import json
 def insertData(word, filename):
     with open(filename) as jsonfile:
         data = json.load(jsonfile)
+    dataSet = set(word) - set(data["user"][0]['word'])
+    dataList = list(dataSet)
     with open(filename, 'w') as jsonfile:
-        for singleWord in word:
+        for singleWord in dataList:
             data["user"][0]['word'].append(singleWord)
         dataStr = json.dump(data, jsonfile)
 
@@ -19,5 +21,5 @@ def select(filename):
 
 
 if __name__ == '__main__':
-    insertData(['affair', 'table', 'fine'], "test.json")
+    insertData(['dissent', 'autonomy', 'add'], "test.json")
     print(select('test.json'))

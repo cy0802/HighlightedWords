@@ -3,6 +3,7 @@ import imgToStr
 import resizeImg
 import crawler
 from flask import Flask, request, redirect, url_for, render_template
+import readJson
 
 UPLOAD_FOLDER = '/static/upload'
 ALLOWED_EXTENSIONS = set(['jpg', 'png', 'jpeg'])
@@ -10,6 +11,12 @@ ALLOWED_EXTENSIONS = set(['jpg', 'png', 'jpeg'])
 app = Flask(__name__, static_folder="static/")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_SIZE'] = 5 * 1024 * 1024  # 5MB
+
+
+@app.route('/history')
+def history():
+    word = readJson.select('test.json')
+    return render_template('memorizeWord.html', words=word)
 
 
 @app.route("/")
@@ -31,6 +38,10 @@ def allowed_file(filename):
 def upload_picture():
     if request.method == "POST":
         picture = request.files['picture']
+        if request.form['history'] == 'history':
+            history = True
+        else:
+            history = False
         if picture.filename == '':
             return render_template('index.html', warning_msg="You didn't upload picture.")
         if allowed_file(picture.filename) == False:
@@ -39,6 +50,8 @@ def upload_picture():
             path = os.path.join('static', 'upload', picture.filename)
             picture.save(path)
             words = imgToStr.ImgToStr(path)
+            if history == True:
+                readJson.insertData(words, 'test.json')
             translate = crawler.Translate(words)
             resizeImg.resize(path)
             # print(translate[0][1]['translate'][0])
