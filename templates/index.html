@@ -2,57 +2,84 @@
 
 <head>
     <title>Highlighted Words</title>
-    <link rel="icon" href="static/highlighter.ico" type="image/x-icon" />
+    <link rel="icon" href="static/img/highlighter.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script>
+        function audio(str) {
+            document.getElementById(str).play();
+        }
+    </script>
+    <style>
+        .fixed-top {
+            position: sticky;
+            top: 80px;
+            left: 20px;
+        }
+    </style>
 </head>
 
 <body>
     <nav class="nav navbar-light navbar-fixed-top pt-2 pb-2" style="background-color:#ffeead;">
-        <span class="navbar-brand mb-0 pl-3 h1">Highlighted Word</span>
+        <span class="navbar-brand mb-0 pl-3 h1">Highlighted Words</span>
         <div class="navbar-nav">
-            <a class="nav-item nav-link pl-2" href="#">使用說明</a>
+            <a class="nav-item nav-link pl-2" href="/intro">使用說明</a>
         </div>
     </nav>
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8 mt-lg-5 pt-3 pb-3" style="border-style: double;">
-            <form action="/upload" method=post enctype=multipart/form-data>
-                <div class="form-group">
-                    <label for="picture">請選擇要上傳的圖片</label><br>
-                    <input type="file" class="form-control-file" name="picture" id="picture">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                {% if picture_path %}
+        <div class="col-lg-3 pt-4 pl-5">
+            <div>
+                <form action="/upload" method=post enctype=multipart/form-data>
+                    <div class="form-group">
+                        <label for="picture">請選擇要上傳的圖片</label><br>
+                        <input type="file" class="form-control-file" name="picture" id="picture">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
                 <br><br>
-                <img src="static/upload/{{ picture_path }}" width=600>
-                {% endif %}
-            </form>
-        </div>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                {% for item in translation %}
-                <h2>{{ item[0] }}</h2>
-                <ul>
-                    {% for pos in item[1:] %}
-                    <li>{{ pos['name'] }}</li>
-                    <!--<li>{{ pos['audio'][0] }}</li>-->
-                    <ol>
-                        {% for i in pos['translate'] %}
-                        <li>{{ i }}</li>
-                        {% endfor %}
-                    </ol>
-                    <li><a href={{ 'https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/'
-                            +item[0] }}>Cambridge Dictionary</a></li>
-                    {% endfor %}
-                </ul>
-                {% endfor %}
             </div>
-            <div class="col-2"></div>
+            <div class="fixed-top">
+                {% if translation %}
+                <p>您的單字 :</p>
+                <ol>
+                    {% for item in translation %}
+                    <li><a href="{{ '#' + item[0] }}">{{ item[0] }}</a></li>
+                    {% endfor %}
+                </ol>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-9 pt-3 pb-3 pl-5">
+            {% if picture_path %}
+            <br><br>
+            <img src="static/upload/{{ picture_path }}" width=600>
+            <br><br>
+            {% endif %}
+            {% for item in translation %}
+            <h2 id="{{ item[0] }}">{{ item[0] }}</h2>
+            <ul>
+                {% for pos in item[1:] %}
+                <li>{{ pos['name'] }}
+                    <audio id={{ pos['audio'][1] }} src={{ pos['audio'][1] }}></audio>
+                    <img onclick="audio('{{ pos['audio'][1] }}')" src="static/img/speaker-filled-audio-tool.png"
+                        width=20 height=20 class="shake-slow shake-constant">
+                </li>
+                <ol>
+                    {% for i in pos['translate'] %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ol>
+                {% endfor %}
+            </ul>
+            <a target="_blank"
+                href="{{ 'https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/' + item[0] }}">{{
+                item[0] + " (Cambridge Dictionary)" }}</a><br><br>
+            {% endfor %}
+            </n>
+            </n>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -60,5 +87,5 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>-->
 </body>

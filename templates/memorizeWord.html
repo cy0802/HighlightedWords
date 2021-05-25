@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Memorized Words</title>
+    <link rel="icon" href="static/highlighter.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="nav navbar-light navbar-fixed-top pt-2 pb-2" style="background-color:#ffeead;">
+        <span class="navbar-brand mb-0 pl-3 h1">Highlighted Word</span>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link pl-2" href="/">回首頁</a>
+        </div>
+    </nav>
+
+    <br><br>
+    <h3 align="center">The Words Sophie Has Looked Up In A Dictioary</h2>
+        <ul>
+            {% for word in words%}
+            <li><a href="{{ 'https://dictionary.cambridge.org/zht/詞典/英語-漢語-繁體/' + word }}">{{ word }}</a></li>
+            {% endfor %}
+        </ul>
+
+
+</body>
