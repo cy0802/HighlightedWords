@@ -11,6 +11,7 @@ def insertData(word, filename):
     with open(filename, 'w') as jsonfile:
         for singleWord in dataList:
             data["user"][0]['word'].append(singleWord)
+        data["user"][0]['word'].sort()
         dataStr = json.dump(data, jsonfile)
 
 

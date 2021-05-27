@@ -50,9 +50,13 @@ def upload_picture():
             path = os.path.join('static', 'upload', picture.filename)
             picture.save(path)
             words = imgToStr.ImgToStr(path)
+            translate = crawler.Translate(words)
+            words = []
+            for i in translate:
+                words.append(i[0])
+            print(words)
             if history == True:
                 readJson.insertData(words, 'data.json')
-            translate = crawler.Translate(words)
             resizeImg.resize(path)
             # print(translate[0][1]['translate'][0])
             # print(type(translate[0][1]['translate'][0]))

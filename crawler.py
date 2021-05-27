@@ -6,8 +6,8 @@ def Translate(words):
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'}
     data = []
+    worddata = []
     for i in words:
-        worddata = [i]  # print(i)
         url1 = 'https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/' + \
             i
         #url1 = 'https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/'+'test'
@@ -15,11 +15,14 @@ def Translate(words):
         url.encoding = "utf-8"
         soup = BeautifulSoup(url.text, "html.parser")
 
+        _word = soup.find(class_='hw dhw')
+
         # 找到詞性
         part_of_speech = soup.find_all(
             "div", class_="posgram dpos-g hdib lmr-5")
         if part_of_speech == []:
             continue
+        worddata = [_word.getText()]
         # 尋找每個詞性對應的中文解釋
         for j in part_of_speech:
             # data_part_of_speech dictionary
