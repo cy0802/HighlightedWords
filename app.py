@@ -10,7 +10,7 @@ ALLOWED_EXTENSIONS = set(['jpg', 'png', 'jpeg'])
 
 app = Flask(__name__, static_folder="static/")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_SIZE'] = 5 * 1024 * 1024  # 5MB
+app.config['MAX_CONTENT_SIZE'] = 7 * 1024 * 1024  # 7MB
 
 
 @app.route('/history')
@@ -58,8 +58,6 @@ def upload_picture():
             if history == True:
                 readJson.insertData(words, 'data.json')
             resizeImg.resize(path)
-            # print(translate[0][1]['translate'][0])
-            # print(type(translate[0][1]['translate'][0]))
             return render_template('index.html', translation=translate, picture_path=picture.filename)
 
 
