@@ -1,0 +1,5 @@
+Flask
+gunicorn
+cv2
+bs4
+pytesseract
