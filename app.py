@@ -1,6 +1,5 @@
 import os
 import imgToStr
-import resizeImg
 import crawler
 from flask import Flask, request, redirect, url_for, render_template
 import readJson
@@ -57,7 +56,7 @@ def upload_picture():
             print(words)
             if history == True:
                 readJson.insertData(words, 'data.json')
-            resizeImg.resize(path)
+            imgToStr.resize(path)
             return render_template('index.html', translation=translate, picture_path=picture.filename)
 
 
