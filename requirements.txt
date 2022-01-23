@@ -1,5 +1,5 @@
 Flask
 gunicorn
-python-opencv-headless
+opencv-python-headless
 bs4
 pytesseract
