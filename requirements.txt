@@ -3,3 +3,4 @@ gunicorn
 opencv-python-headless
 bs4
 pytesseract
+requests
