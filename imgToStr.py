@@ -69,8 +69,8 @@ def ImgToStr(path):
     words = list(filter(not_empty, Str))
     # print(words)
 
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     return words
 
