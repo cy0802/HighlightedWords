@@ -25,7 +25,7 @@ def home():
 
 @app.route("/intro")
 def intro():
-    return render_template('intro.html')
+    return render_template('introduce.html')
 
 
 def allowed_file(filename):
