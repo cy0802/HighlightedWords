@@ -75,9 +75,10 @@
             <ul>
                 {% for pos in item[1:] %}
                 <li>{{ pos['name'] }}
-                    <audio id={{ pos['audio'][1] }} src={{ pos['audio'][1] }}></audio>
-                    <img onclick="audio('{{ pos['audio'][1] }}')" src="static/img/speaker-filled-audio-tool.png"
-                        width=20 height=20 class="shake-slow shake-constant">
+                    <audio id={{ 'audio/' + pos['audio'][1] }} src="audio/{{ pos['audio'][1] }}"></audio>
+                    <img onclick="audio('{{ 'audio/' + pos['audio'][1] }}')"
+                        src="static/img/speaker-filled-audio-tool.png" width=20 height=20
+                        class="shake-slow shake-constant">
                 </li>
                 <ol>
                     {% for i in pos['translate'] %}

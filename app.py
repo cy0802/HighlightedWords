@@ -33,6 +33,11 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+@app.route("/audio/<src>")
+def audio_play(src):
+    return redirect('https://dictionary.cambridge.org' + src.replace('=', '/', 8))
+
+
 @app.route("/upload", methods=['POST', 'GET'])
 def upload_picture():
     if request.method == "POST":

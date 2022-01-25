@@ -38,10 +38,8 @@ def Translate(words):
                 "div").find_parent("div").find_parent("div")
             # 尋找單字音檔
             audio = result.find_all("source", type="audio/mpeg")
-            url_audio_US = 'https://dictionary.cambridge.org' + \
-                audio[0].get("src")
-            url_audio_UK = 'https://dictionary.cambridge.org' + \
-                audio[1].get("src")
+            url_audio_US = audio[0].get("src").replace('/', '=', 8)
+            url_audio_UK = audio[1].get("src").replace('/', '=', 8)
             dpos['audio'].append(url_audio_US)  # print('US : ' + url_audio_US)
             dpos['audio'].append(url_audio_UK)  # print('UK : ' + url_audio_UK)
             # 用class尋找中文解釋
