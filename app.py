@@ -1,8 +1,10 @@
 import os
 import imgToStr
 import crawler
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, render_template, send_file
 import readJson
+import requests
+import io
 
 UPLOAD_FOLDER = '/static/upload'
 ALLOWED_EXTENSIONS = set(['jpg', 'png', 'jpeg'])
@@ -34,8 +36,11 @@ def allowed_file(filename):
 
 
 @app.route("/audio/<src>")
-def audio_play(src):
-    return redirect('https://dictionary.cambridge.org' + src.replace('=', '/', 8))
+def test3(src):
+    user_agent = {'User-agent': 'Mozilla/5.0'}
+    re = requests.get('https://dictionary.cambridge.org' +
+                      src.replace('=', '/', 8), headers=user_agent)
+    return send_file(io.BytesIO(re.content), mimetype="audio/mp3")
 
 
 @app.route("/upload", methods=['POST', 'GET'])
