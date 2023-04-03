@@ -1,0 +1,6 @@
+test.*
+app.ini
+img_testdata/*
+img_step/*
+__pycache__/*
+static/upload/*
