@@ -18,7 +18,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'HighlightedWords=app:main',
+            'HighlightedWords=app:app',
         ],
     },
 )
