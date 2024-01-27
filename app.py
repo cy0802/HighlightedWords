@@ -69,6 +69,5 @@ def upload_picture():
             imgToStr.resize(path)
             return render_template('index.html', translation=translate, picture_path=picture.filename)
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
+def main():
+    app.run()
